@@ -1,0 +1,7 @@
+#mainwindow {
+    background-color: #1b2b39;
+}
+
+QLabel, QStatusBar {
+    color:aliceblue;
+}
