@@ -20,6 +20,44 @@ class AppWindow(QWidget):
         self.setStyleSheet('''
             font-size: 16px;
         ''')
+
         self.layout = {}
         self.layout['main'] = QVBoxLayout()
         self.setLayout(self.layout['main'])
+
+        self.response_log = []
+
+        self.init_ul()
+    
+    def init_ui(self):
+        self.layout['model'] = QHBoxLayout()
+        self.layout['main'].addLayout(self.layout['model'])
+
+        label_model = QLabel('Model:')
+        label_model.setFixedWidth(60)
+        self.combo_box = QComboBox()
+        self.combo_box.setFixedWidth(250)
+        self.combo_box.addItems(models)
+        self.layout['model'].addWidget(label_model)
+        self.layout['model'].addWidget(self.combo_box)
+        self.layout['model'].addStretch()
+
+
+if __name__ == '__main__':
+    try:
+        models = list_models_names()
+        ollama_offline = False
+    except httpx.ConnectError:
+        models = []
+        ollama_offline = True
+
+    app = QApplication(sys.argv)
+    app.setStyleSheet(open('stylesheet.css').read())
+
+    myApp = AppWindow()
+    myApp.show()
+
+    try:
+        sys.exit(app.exec())
+    except SystemExit:
+        print('Closing Window...')
