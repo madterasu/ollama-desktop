@@ -114,7 +114,7 @@ class AppWindow(QWidget):
             self.status_bar.showMessage(f'Error: {e}')
             return
         
-        html = markdown.markdown(response['response'].strip(), extensions=['n12br'])
+        html = markdown.markdown(response['response'].strip(), extensions=['nl2br'])
         # print(response)
         self.response_log.append(
             {
